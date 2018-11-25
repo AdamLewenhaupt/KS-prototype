@@ -31,7 +31,7 @@ class App extends Component {
           >
             <Switch>
               <Route exact path="/" component={News} />
-              <Route exact path="/overview" component={Overview} />
+              <Route path="/overview" component={Overview} />
             </Switch>
           </Pane>
         </Pane>

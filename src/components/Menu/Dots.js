@@ -25,10 +25,10 @@ export default class Dots extends Component {
         />
         <Pane>
         {range(progress).map((_, i) => (
-          <Avatar marginLeft={4} isSolid name=" " color="green" />
+          <Avatar key={i} marginLeft={4} isSolid name=" " color="green" />
         ))}
         {range(remaining).map((_, i) => (
-          <Avatar marginLeft={4} name=" " color="neutral" />
+          <Avatar key={i} marginLeft={4} name=" " color="neutral" />
         ))}
         </Pane>
       </Pane>

@@ -1,23 +1,10 @@
 import React, { Component } from 'react'
 import styles from './Overview.css'
 
-import { Doughnut } from 'react-chartjs-2'
+import { Switch, Route } from 'react-router-dom'
 import { Pane } from 'evergreen-ui'
-import Subject from './Subject';
-
-const data = (p) => ({
-  datasets: [{
-    data: [p, (100 - p)],
-    backgroundColor: [
-      '#45BBA3',
-      '#FFF'
-    ],
-    hoverBackgroundColor: [
-      '#45BBA3',
-      '#FFF'
-    ]
-  }]
-})
+import Semester from './Semester';
+import Steps from './Steps';
 
 const subjects = [
   {
@@ -41,8 +28,6 @@ const subjects = [
 
 export default class Overview extends Component {
   render() {
-    const percentages = 67
-
     return (
       <Pane
         padding={16}
@@ -50,24 +35,10 @@ export default class Overview extends Component {
         display="flex"
         alignItems="center"
       >
-        <Pane width="50%">
-          {subjects.map(subject => (
-            <Subject key={subject.name} {...subject} />
-          ))}
-        </Pane>
-        <Pane width="50%" textAlign="center">
-          <h1>Termin {percentages} %</h1>
-          <Doughnut
-            legend={false}
-            data={data(percentages)}
-            options={{
-              cutoutPercentage: 70,
-              tooltips: {
-                enabled: false,
-              }
-            }}
-          />
-        </Pane>
+        <Switch>
+          <Route path="/overview/:subject" component={Steps} />
+          <Route component={() => <Semester subjects={subjects} />} />
+        </Switch>
       </Pane>
     );
   }
