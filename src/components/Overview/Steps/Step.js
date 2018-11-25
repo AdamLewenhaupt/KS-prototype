@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import './Step.css'
+
+import { Link } from 'react-router-dom'
 
 import { 
   Pane, 
@@ -8,27 +11,23 @@ import {
   ListItem 
 } from 'evergreen-ui'
 import Doughnut from '../../Common/Doughnut';
+import Summary from '../Step/Summary';
 
 export default class Step extends Component {
   render() {
-    const { number } = this.props
+    const { subject, number } = this.props
     return (
-      <Pane elevation={3} padding={8} width="100%" marginTop={16}>
-        <Heading textAlign="center" is="h3">Steg {number}</Heading>
-        <Pane display="flex" alignItems="center">
-          <Pane width="25%">
-            <Doughnut percentage={65} />
-          </Pane>
-          <Pane>
-            <Strong>Vykort</Strong>
-            <UnorderedList>
-              <ListItem>Berätta och skriv om olika miljöer</ListItem>
-              <ListItem>Typiska aktiviteter</ListItem>
-              <ListItem>Läsa, förstå och skriva vykort</ListItem>
-            </UnorderedList>
+      <Link to={`/overview/${subject}/${number}`} className="step-link">
+        <Pane elevation={3} padding={8} width="100%" marginTop={16}>
+          <Heading textAlign="center" is="h3">Steg {number}</Heading>
+          <Pane display="flex" alignItems="center">
+            <Pane width="25%">
+              <Doughnut percentage={65} />
+            </Pane>
+            <Summary />
           </Pane>
         </Pane>
-      </Pane>
+      </Link>
     )
   }
 }

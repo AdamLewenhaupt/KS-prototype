@@ -20,7 +20,7 @@ class Steps extends Component {
         </Heading> 
         {
           steps.map(step => (
-            <Step key={step.number} {...step} />
+            <Step subject={subject} key={step.number} {...step} />
           ))
         }
       </Pane>

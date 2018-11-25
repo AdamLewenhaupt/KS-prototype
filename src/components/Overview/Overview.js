@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Pane } from 'evergreen-ui'
 import Semester from './Semester';
 import Steps from './Steps';
+import Step from './Step';
 
 const subjects = [
   {
@@ -36,6 +37,7 @@ export default class Overview extends Component {
         alignItems="center"
       >
         <Switch>
+          <Route path="/overview/:subject/:number" component={Step} />
           <Route path="/overview/:subject" component={Steps} />
           <Route component={() => <Semester subjects={subjects} />} />
         </Switch>
