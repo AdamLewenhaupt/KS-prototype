@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import { Pane } from 'evergreen-ui'
+import { Route, Switch } from 'react-router-dom'
+import Header from './components/Header/Header';
+import Overview from './components/Overview/Overview';
+import News from './components/News/News'
+import Menu from './components/Menu/Menu';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+      <Pane 
+        display="flex" 
+        marginLeft={20} 
+        boxSizing="border-box"
+        backgroundColor="white"
+        minHeight="100vh"
+        elevation={1}
+      >
+        <Pane 
+          width="60vw" 
+          marginLeft={16}             
+          marginTop={16}
+        >
+          <Header />
+          <Pane 
+            elevation={3}
+            padding={16}
+            marginTop={16}
           >
-            Learn React
-          </a>
-        </header>
-      </div>
+            <Switch>
+              <Route exact path="/" component={News} />
+              <Route exact path="/overview" component={Overview} />
+            </Switch>
+          </Pane>
+        </Pane>
+        <Pane width="40vw" margin={16}>
+          <Menu />
+        </Pane>
+      </Pane>
     );
   }
 }
