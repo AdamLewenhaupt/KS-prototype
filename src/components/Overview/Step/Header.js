@@ -6,6 +6,8 @@ import { Pane, Card, Heading } from 'evergreen-ui'
 
 export default class Header extends Component {
   render() {
+    const { step } = this.props
+
     return (
       <Pane 
         display="flex" 
@@ -16,7 +18,10 @@ export default class Header extends Component {
         <Pane width="25%" display="flex" alignItems="center">
           <Doughnut percentage={50} />
         </Pane>
-        <Summary />
+        <Pane>
+          <Heading textAlign="center" size={400}>Steg {step}</Heading>
+          <Summary />
+        </Pane>
         <Card 
           backgroundColor="#45BBA3" 
           flex={1} 

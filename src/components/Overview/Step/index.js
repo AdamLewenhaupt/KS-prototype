@@ -5,9 +5,12 @@ import Header from './Header';
 
 export default class Step extends Component {
   render() {
+    const { match } = this.props;
+    const { subject, step } = match.params
+
     return (
       <Pane width="100%">
-        <Header />
+        <Header step={step} />
       </Pane>
     )
   }

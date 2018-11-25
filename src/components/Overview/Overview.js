@@ -37,7 +37,7 @@ export default class Overview extends Component {
         alignItems="center"
       >
         <Switch>
-          <Route path="/overview/:subject/:number" component={Step} />
+          <Route path="/overview/:subject/:step" component={Step} />
           <Route path="/overview/:subject" component={Steps} />
           <Route component={() => <Semester subjects={subjects} />} />
         </Switch>
