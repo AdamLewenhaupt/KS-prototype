@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from './Header.css'
 
 import { Pane, IconButton } from 'evergreen-ui'
-import Progress from './Progress';
+import Progress from '../Common/Progress/Progress';
 
 export default class Header extends Component {
   render() {

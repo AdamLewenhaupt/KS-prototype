@@ -27,7 +27,6 @@ class App extends Component {
           <Header />
           <Pane 
             elevation={3}
-            padding={16}
             marginTop={16}
           >
             <Switch>
