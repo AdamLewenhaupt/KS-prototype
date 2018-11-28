@@ -10,10 +10,13 @@ export default class Header extends Component {
 
     return (
       <Pane 
+        textAlign="left"
         display="flex" 
         alignItems="fill" 
         width="100%" 
         justifyContent="space-between"
+        borderBottom="1px solid rgb(190,190,190)"
+        paddingBottom={16}
       >
         <Pane width="25%" display="flex" alignItems="center">
           <Doughnut percentage={50} />
