@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+import { setDate } from '../../../store/courses'
 import { Pane, Strong, Card, Heading } from 'evergreen-ui'
 import _ from 'lodash'
 import moment from 'moment'
@@ -9,7 +11,12 @@ const generateDates = _.memoize(() => {
   return _.range(0,5).map(n => today.clone().add(n + 14, 'days'))
 })
 
-export default class DateSelection extends Component {
+class DateSelection extends Component {
+  setDate = (date) => {
+    const { setDate, step, courseID } = this.props
+    setDate(courseID, step.id, date)
+  }
+
   render() {
     return (
       <Pane 
@@ -28,6 +35,8 @@ export default class DateSelection extends Component {
           {
             generateDates().map(day => (
               <Card 
+                cursor="pointer"
+                onClick={this.setDate.bind(this, day)}
                 key={day.toString()}
                 backgroundColor="#45BBA3" 
                 flex={1} 
@@ -51,3 +60,5 @@ export default class DateSelection extends Component {
     )
   }
 }
+
+export default connect(null, { setDate })(DateSelection)

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { getStepProgress } from '../../utils/progress'
+import { completeSubtask } from '../../store/courses'
+import { connect } from 'react-redux'
 import { 
   subtaskIsActive, stepIsActive 
 } from '../../utils/active'
@@ -14,18 +16,7 @@ import {
 } from 'evergreen-ui'
 import Dots from './Dots';
 
-const items = {
-    "Tillgodogöra dig innehållet i en novell": [
-    { text: 'Ordinlärningsstrategier', selected: true, done: true }
-  ],
-
-  "Skriva en läslogg": [
-    { text: 'Obestämd artikel', selected: true },
-    { text: 'Att läsa och skriva', selected: true },
-  ]
-}
-
-export default class Subject extends Component {
+class Subject extends Component {
   state = {
     showContent: false
   }
@@ -34,6 +25,11 @@ export default class Subject extends Component {
     this.setState({
       showContent: !this.state.showContent
     })
+  }
+
+  completeSubtask = (stepID, taskID, subtaskID) => {
+    const { course, completeSubtask } = this.props
+    completeSubtask(course.id, stepID, taskID, subtaskID)
   }
 
   render() {
@@ -77,15 +73,29 @@ export default class Subject extends Component {
                         icon="circle"
                       >
                         {
-                          _.flatten(_.map(step.tasks, 'subTasks'))
-                          .filter(subtaskIsActive)
-                          .map(st => (
-                          <ListItem 
-                            key={st.id}
-                          >
-                            {st.text}
-                          </ListItem>
-                        ))}
+                          _.flatten(_.map(step.tasks, task => {
+                            return task.subTasks
+                              .filter(subtaskIsActive)
+                              .map(st => {
+                                let props = {}
+                                if (st.completed) {
+                                  props.icon = 'full-circle'
+                                  props.iconColor = '#45BBA3'
+                                }
+
+                                return (
+                                  <ListItem 
+                                    {...props}
+                                    key={st.id}
+                                    cursor="pointer"
+                                    onClick={this.completeSubtask.bind(this, step.id, task.id, st.id)}
+                                  >
+                                    {st.text}
+                                  </ListItem>
+                                )
+                              })
+                          })
+                          )}
                       </UnorderedList>
                     </Pane>
                   )
@@ -98,3 +108,7 @@ export default class Subject extends Component {
     )
   }
 }
+
+export default connect(null, {
+  completeSubtask
+})(Subject)

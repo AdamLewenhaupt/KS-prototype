@@ -37,8 +37,8 @@ class Step extends Component {
         </Link>
         <Pane elevation={1} padding={12} marginTop={12}>
           <Header step={step} />
-          {!step.selectedDate && <DateSelection />}
-          <Activities step={step} />
+          {!step.selectedDate && <DateSelection courseID={course.id} step={step} />}
+          <Activities step={step} courseID={course.id} />
         </Pane>
       </Pane>
     )

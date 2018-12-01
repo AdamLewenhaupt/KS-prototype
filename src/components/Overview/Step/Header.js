@@ -8,6 +8,7 @@ import { Pane, Card, Heading } from 'evergreen-ui'
 export default class Header extends Component {
   render() {
     const { step } = this.props
+    const day = step.selectedDate
 
     return (
       <Pane 
@@ -41,8 +42,8 @@ export default class Header extends Component {
               maxHeight={120}
               minHeight={120}
               >
-              <Heading size={900} color="white" as="h1">17</Heading> 
-              <Heading color="white" as="h2">Okt</Heading> 
+                <Heading size={900} color="white" as="h1">{day.format('D')}</Heading> 
+                <Heading color="white" as="h2">{day.format('MMM')}</Heading> 
             </Card>
           )
         }

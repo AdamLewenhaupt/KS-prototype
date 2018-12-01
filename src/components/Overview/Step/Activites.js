@@ -1,5 +1,6 @@
+import { connect } from 'react-redux'
 import React, { Component, Fragment } from 'react'
-import styles from './Activities.css'
+import { toggleSubtask } from '../../../store/courses'
 
 import {
   UnorderedList,
@@ -8,10 +9,19 @@ import {
   Strong
 } from 'evergreen-ui'
 
-export default class Activities extends Component {
+class Activities extends Component {
+  selectSubtask = (taskID, subtaskID) => {
+    const {
+      courseID,
+      step,
+      toggleSubtask
+    } = this.props
+
+    toggleSubtask(courseID, step.id, taskID, subtaskID)
+  }
+
   render() {
     const { step } = this.props
-
     const { tasks } = step
 
     return (
@@ -37,8 +47,9 @@ export default class Activities extends Component {
                   key={st.id}
                 >
                   <Button 
+                    onClick={this.selectSubtask.bind(this, task.id, st.id)}
                     width="100%"
-                    appearance={st.completed ? "primary" : "default"}
+                    appearance={st.selected ? "primary" : "default"}
                     intent="success"
                   >
                     {st.text}
@@ -52,3 +63,7 @@ export default class Activities extends Component {
     )
   }
 }
+
+export default connect(null, {
+  toggleSubtask
+})(Activities)
