@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import styles from './Menu.css'
 
+import { connect } from 'react-redux'
 import { Card, Pane } from 'evergreen-ui'
 import Header from './Header';
 import Subject from './Subject';
 
-export default class Menu extends Component {
+class Menu extends Component {
   render() {
+    const { courses } = this.props
     return (
       <Card 
         elevation={1}
@@ -15,9 +17,17 @@ export default class Menu extends Component {
       >
         <Header />
         <Pane marginTop={12}>
-          <Subject name="Engelska" />
+          {
+            courses.map(course => (
+              <Subject key={course.id} course={course} />
+            ))
+          }
         </Pane>
       </Card>
     )
   }
 }
+
+export default connect(state => ({
+  courses: state.courses
+}))(Menu)

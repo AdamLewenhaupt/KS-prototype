@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import { getStepProgress } from '../../utils/progress'
+import _ from 'lodash'
+
 import './Subject.css'
+
 
 import { 
   Pill, Card, Pane, IconButton, Strong,
@@ -30,7 +34,10 @@ export default class Subject extends Component {
   }
 
   render() {
-    const { name } = this.props
+    const { course } = this.props
+    const { name, steps } = course
+
+    const completedSteps = _.filter(steps, s => getStepProgress(s) === 100).length
 
     return (
       <Card
@@ -46,7 +53,7 @@ export default class Subject extends Component {
           borderBottom="1px solid rgb(160, 160, 160)"
         >
           <strong>{name.toUpperCase()}</strong>
-          <Dots n={3} progress={1} />
+          <Dots n={steps.length} progress={completedSteps} />
           <IconButton 
             appearance="minimal" 
             icon={this.state.showContent ? "chevron-up" : "chevron-down"}
@@ -57,20 +64,20 @@ export default class Subject extends Component {
           this.state.showContent && (
             <Pane>
               {
-                Object.keys(items).map(category => {
+                steps.map(step => {
                   return (
-                    <Pane key={category} padding={8}>
+                    <Pane key={step.id} padding={8}>
                       <Strong>
-                        <Pill color="green">{15}</Pill> {category}
+                        <Pill color="green">{step.number}</Pill> {step.title}
                       </Strong>
                       <UnorderedList
                         icon="circle"
                       >
-                        {items[category].map(activity => (
+                        {step.tasks.map(task => (
                           <ListItem 
-                            key={activity.text}
+                            key={task.id}
                           >
-                            {activity.text}
+                            {task.title}
                           </ListItem>
                         ))}
                       </UnorderedList>
