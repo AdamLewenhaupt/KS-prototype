@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 
+import { getCourseProgress } from '../../utils/progress'
 import { Pane, IconButton } from 'evergreen-ui'
 import Progress from '../Common/Progress/Progress';
 
-export default class Header extends Component {
+const avg = (xs) => _.sum(xs) / xs.length
+
+class Header extends Component {
   render() {
+    const { courses } = this.props
+    const totalProgress = avg(courses.map(getCourseProgress))
+
     return (
       <Pane 
         display="flex" 
@@ -12,7 +20,7 @@ export default class Header extends Component {
         alignItems="center"
       >
         <Pane width="50%">
-          <Progress percent={75} /> 
+          <Progress percent={Math.round(totalProgress)} /> 
         </Pane>
         <Pane>Vecka 39</Pane>
         <Pane display="flex">
@@ -23,3 +31,7 @@ export default class Header extends Component {
     )
   }
 }
+
+export default connect(state => ({
+  courses: state.courses
+}))(Header)

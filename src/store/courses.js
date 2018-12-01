@@ -1,5 +1,6 @@
 import engelska from '../seed/engelska'
 import _ from 'lodash'
+import { read, save } from '../utils/persistence';
 
 const SET_DATE = 'SET_DATE'
 const TOGGLE_SUBTASK = 'TOGGLE_SUBTASK'
@@ -45,12 +46,13 @@ export const completeSubtask = (courseID, stepID, taskID, subtaskID) => ({
 })
 
 
-const initalState = [
+const initalState = read() || [
   engelska
 ]
 
 
 export const courses = (state = initalState, action) => {
+  save(state)
   const updateCourse = _.bind(updateIn, null, state, 'id', action.courseID)
 
   switch (action.type) {

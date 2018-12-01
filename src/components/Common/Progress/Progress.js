@@ -18,6 +18,7 @@ export default class Progress extends Component {
         overflow="hidden"
       >
         <Pane 
+          className="progress-bar"
           height={30} 
           width={`${percent}%`} 
           background={color || "#3EBCA3"} 
