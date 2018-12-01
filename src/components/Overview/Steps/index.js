@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { Heading, Pane } from 'evergreen-ui'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import Step from './Step';
+
+import _ from 'lodash'
 
 const steps = [
   { number: 18 }
@@ -10,17 +13,23 @@ const steps = [
 
 class Steps extends Component {
   render() {
-    const { match } = this.props;
+    const { match, courses } = this.props;
     const { subject } = match.params
+
+    const course = _.find(courses, c => c.name === subject)
+
+    if (!course) {
+      return <Redirect to="/overview" />
+    }
 
     return (
       <Pane width="100%">
         <Heading is="h1" color="#45BBA3">
-          {subject}
+          {course.name}
         </Heading> 
         {
-          steps.map(step => (
-            <Step subject={subject} key={step.number} {...step} />
+          course.steps.map(step => (
+            <Step subject={subject} key={step.number} step={step} />
           ))
         }
       </Pane>
@@ -28,4 +37,6 @@ class Steps extends Component {
   }
 }
 
-export default withRouter(Steps)
+export default withRouter(connect(state => ({
+  courses: state.courses
+}))(Steps))

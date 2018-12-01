@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Doughnut from '../../Common/Doughnut';
 import Summary from './Summary';
 
+import { getStepProgress } from '../../../utils/progress'
 import { Pane, Card, Heading } from 'evergreen-ui'
 
 export default class Header extends Component {
@@ -19,11 +20,11 @@ export default class Header extends Component {
         paddingBottom={16}
       >
         <Pane width="25%" display="flex" alignItems="center">
-          <Doughnut percentage={50} />
+          <Doughnut percentage={getStepProgress(step)} />
         </Pane>
         <Pane>
-          <Heading textAlign="center" size={400}>Steg {step}</Heading>
-          <Summary />
+          <Heading textAlign="center" size={400}>Steg {step.number}</Heading>
+          <Summary step={step} />
         </Pane>
         <Card 
           backgroundColor="#45BBA3" 
@@ -33,8 +34,10 @@ export default class Header extends Component {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
+          minWidth={120}
           maxWidth={120}
-          maxHeight={200}
+          maxHeight={120}
+          minHeight={120}
           >
           <Heading size={900} color="white" as="h1">17</Heading> 
           <Heading color="white" as="h2">Okt</Heading> 

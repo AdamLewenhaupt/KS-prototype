@@ -4,13 +4,19 @@ import { Pane, Strong, UnorderedList, ListItem } from 'evergreen-ui'
 
 export default class Summary extends Component {
   render() {
+    const { step } = this.props
+
     return (
       <Pane>
         <Strong>Vykort</Strong>
         <UnorderedList>
-          <ListItem>Berätta och skriv om olika miljöer</ListItem>
-          <ListItem>Typiska aktiviteter</ListItem>
-          <ListItem>Läsa, förstå och skriva vykort</ListItem>
+          {
+            step.tasks.map(task => (
+              <ListItem key={task.id}>
+                {task.title}
+              </ListItem>
+            ))
+          }
         </UnorderedList>
       </Pane>
     )

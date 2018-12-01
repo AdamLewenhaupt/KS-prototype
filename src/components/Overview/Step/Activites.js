@@ -8,19 +8,12 @@ import {
   Strong
 } from 'evergreen-ui'
 
-const items = {
-    "Tillgodogöra dig innehållet i en novell": [
-    { text: 'Ordinlärningsstrategier', selected: true, done: true }
-  ],
-
-  "Skriva en läslogg": [
-    { text: 'Obestämd artikel', selected: true },
-    { text: 'Att läsa och skriva', selected: true },
-  ]
-}
-
 export default class Activities extends Component {
   render() {
+    const { step } = this.props
+
+    const { tasks } = step
+
     return (
       <UnorderedList
         display="inline-block"
@@ -32,25 +25,23 @@ export default class Activities extends Component {
         textAlign="left"
       >
         {
-          Object.keys(items).map(category => {
-            const activites = items[category]
-
+          tasks.map(task => {
             return [
-              (<ListItem key={category} 
+              (<ListItem key={task.id} 
               >
-                <Strong>{category}</Strong>
+                <Strong>{task.title}</Strong>
               </ListItem>),
-              ...activites.map(a => (
+              ...task.subTasks.map(st => (
                 <ListItem 
                   listStylePosition="inside"
-                  key={a.text}
+                  key={st.id}
                 >
                   <Button 
                     width="100%"
-                    appearance={a.done ? "primary" : "default"}
+                    appearance={st.completed ? "primary" : "default"}
                     intent="success"
                   >
-                    {a.text}
+                    {st.text}
                   </Button>
                 </ListItem>
               ))
