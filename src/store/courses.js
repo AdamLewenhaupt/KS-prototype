@@ -79,7 +79,7 @@ export const courses = (state = initalState, action) => {
         ...course,
         steps: updateWithIDFn(course.steps, action.stepID, 'tasks', tasks => 
           updateWithIDFn(tasks, action.taskID, 'subTasks', subTasks => 
-            updateWithID(subTasks, action.subtaskID, 'completed', true)
+            updateWithIDFn(subTasks, action.subtaskID, 'completed', x => !x)
           )
         )
       }))

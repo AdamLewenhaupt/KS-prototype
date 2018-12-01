@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getStepProgress } from '../../utils/progress'
+import { getStepProgress, getStatsForTasks } from '../../utils/progress'
 import { completeSubtask } from '../../store/courses'
 import { connect } from 'react-redux'
 import { 
@@ -36,7 +36,13 @@ class Subject extends Component {
     const { course } = this.props
     const { name, steps } = course
 
-    const completedSteps = _.filter(steps, s => getStepProgress(s) === 100).length
+    const stats = 
+      _.flatten(_.map(steps.filter(stepIsActive), 'tasks'))
+        .map(task => getStatsForTasks(task))
+        .reduce((c, { completed, total }) => ({
+          completed: c.completed + completed,
+          total: c.total + total
+        }), { completed: 0, total: 0 })
 
     return (
       <Card
@@ -52,7 +58,7 @@ class Subject extends Component {
           borderBottom="1px solid rgb(160, 160, 160)"
         >
           <strong>{name.toUpperCase()}</strong>
-          <Dots n={steps.length} progress={completedSteps} />
+          <Dots n={stats.total} progress={stats.completed} />
           <IconButton 
             appearance="minimal" 
             icon={this.state.showContent ? "chevron-up" : "chevron-down"}
