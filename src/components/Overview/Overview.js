@@ -1,5 +1,5 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import styles from './Overview.css'
 
 import { Switch, Route } from 'react-router-dom'
 import { Pane } from 'evergreen-ui'
@@ -10,7 +10,6 @@ import Step from './Step';
 const subjects = [
   {
     name: "Engelska",
-    color: "#1DAFEB",
     steps: [
       { number: 18, progress: 100 },
       { number: 19, progress: 79 },
@@ -27,7 +26,7 @@ const subjects = [
   }
 ]
 
-export default class Overview extends Component {
+class Overview extends Component {
   render() {
     return (
       <Pane
@@ -39,9 +38,11 @@ export default class Overview extends Component {
         <Switch>
           <Route path="/overview/:subject/:step" component={Step} />
           <Route path="/overview/:subject" component={Steps} />
-          <Route component={() => <Semester subjects={subjects} />} />
+          <Route component={Semester} />
         </Switch>
       </Pane>
     );
   }
 }
+
+export default Overview

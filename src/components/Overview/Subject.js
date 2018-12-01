@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import { 
+  getCourseProgress, 
+  getStepProgress 
+} from '../../utils/progress'
 
 import './Subject.css'
 
@@ -10,19 +14,21 @@ import { Link } from 'react-router-dom'
 
 export default class Subject extends Component {
   render() {
-    const { color, name, steps } = this.props;
+    const { course } = this.props;
+    const { color, name, steps } = course
     
-    const totalProgress = _.sum(steps.map(s => s.progress)) / steps.length
-    const currentStep = _.find(steps, (s) => s.progress !== 100)
+    const progress = getCourseProgress(course)
+    const currentStep = _.find(steps, (s) => getStepProgress(s) !== 100)
 
     return (
       <Link to={`/overview/${name}`} className="subject-link">
         <Pane cursor="pointer" elevation={0} padding={8} marginBottom={16}>
           <Strong color={color}>{name}</Strong>
           <Pane>     
-            <Text>Steg {currentStep.number}</Text>
+            {!currentStep && <Text>Inget steg påbörjat</Text>}
+            {currentStep && <Text>Steg {currentStep.number}</Text>}
             <Card overflow="hidden">
-              <Progress color={color} percent={Math.round(totalProgress)} />
+              <Progress color={color} percent={Math.round(progress)} />
             </Card>
           </Pane>
           <Pane>
@@ -30,11 +36,12 @@ export default class Subject extends Component {
             <Card display="flex" overflow="hidden">
             {
               steps.map((step, i) => {
+                console.log(step)
                 return (
                   <Progress 
                     key={step.name}
                     color={color}
-                    percent={step.progress} 
+                    percent={getStepProgress(step)} 
                     text={`Steg ${step.number}`}
                     borderLeft={i !== 0 ? "2px solid white" : null}
                   />

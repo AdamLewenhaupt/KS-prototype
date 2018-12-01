@@ -14,15 +14,18 @@ export const createTask = (title, subTasks = []) => ({
   }))
 })
 
-export const createStep = (step, title, tasks) => ({
+export const createStep = (number, title, tasks) => ({
   id: stepID++,
-  step,
+  number,
   title,
   tasks
 })
 
-export const createCourse = (name, steps) => ({
-  id: courseID++,
-  name,
-  steps
-})
+export const createCourse = (name, color, steps) => {
+  return {
+    id: courseID++,
+    name,
+    color,
+    steps
+  }
+}

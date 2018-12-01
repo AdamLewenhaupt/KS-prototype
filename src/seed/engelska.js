@@ -1,6 +1,6 @@
 import { createCourse, createStep, createTask } from '../utils/builders'
 
-export default createCourse('Engelska', [
+export default createCourse('Engelska', '#1DAFEB', [
   createStep(
     18, 
     'Vykort', [
