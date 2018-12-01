@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import moment from 'moment'
+
 import { Pane } from 'evergreen-ui'
 import { Route, Switch } from 'react-router-dom'
 import Header from './components/Header/Header';
 import Overview from './components/Overview/Overview';
 import News from './components/News/News'
 import Menu from './components/Menu/Menu';
+
+moment.locale('sv')
 
 class App extends Component {
   render() {

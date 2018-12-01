@@ -26,22 +26,26 @@ export default class Header extends Component {
           <Heading textAlign="center" size={400}>Steg {step.number}</Heading>
           <Summary step={step} />
         </Pane>
-        <Card 
-          backgroundColor="#45BBA3" 
-          flex={1} 
-          marginLeft={16} 
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-          minWidth={120}
-          maxWidth={120}
-          maxHeight={120}
-          minHeight={120}
-          >
-          <Heading size={900} color="white" as="h1">17</Heading> 
-          <Heading color="white" as="h2">Okt</Heading> 
-        </Card>
+        {
+          step.selectedDate && (
+            <Card 
+              backgroundColor="#45BBA3" 
+              flex={1} 
+              marginLeft={16} 
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              minWidth={120}
+              maxWidth={120}
+              maxHeight={120}
+              minHeight={120}
+              >
+              <Heading size={900} color="white" as="h1">17</Heading> 
+              <Heading color="white" as="h2">Okt</Heading> 
+            </Card>
+          )
+        }
       </Pane>
     )
   }

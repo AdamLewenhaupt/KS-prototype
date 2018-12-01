@@ -7,6 +7,7 @@ import Activities from './Activites';
 import { Link, Redirect } from 'react-router-dom'
 
 import _ from 'lodash'
+import DateSelection from './DateSelection'
 
 class Step extends Component {
   render() {
@@ -36,6 +37,7 @@ class Step extends Component {
         </Link>
         <Pane elevation={1} padding={12} marginTop={12}>
           <Header step={step} />
+          {!step.selectedDate && <DateSelection />}
           <Activities step={step} />
         </Pane>
       </Pane>

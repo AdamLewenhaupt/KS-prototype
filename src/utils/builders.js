@@ -18,7 +18,8 @@ export const createStep = (number, title, tasks) => ({
   id: stepID++,
   number,
   title,
-  tasks
+  tasks,
+  selectedDate: null
 })
 
 export const createCourse = (name, color, steps) => {
