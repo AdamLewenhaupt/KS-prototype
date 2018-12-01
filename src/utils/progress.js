@@ -1,18 +1,26 @@
 import _ from 'lodash'
 
-export const getTaskProgress = (task) => {
+export const getStatsForTasks = (task) => {
   const done = _.countBy(task.subTasks, st => st.completed)
 
-  if (!done.false) {
-    if(!done.true) {
+  return {
+    completed: done.true || 0,
+    left: done.false || 0,
+    total: task.subTasks.length
+  }
+}
+
+export const getTaskProgress = (task) => {
+  const { completed, total, left } = getStatsForTasks(task)
+
+  if (left === 0) {
+    if(completed === 0) {
       return 0
     }
     return 100
   }
 
-  const n = done.true || 0
-  const p = n / (n + done.false)
-
+  const p = completed / total
   return 100*p
 }
 
