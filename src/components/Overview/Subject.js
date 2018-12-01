@@ -36,7 +36,6 @@ export default class Subject extends Component {
             <Card display="flex" overflow="hidden">
             {
               steps.map((step, i) => {
-                console.log(step)
                 return (
                   <Progress 
                     key={step.name}

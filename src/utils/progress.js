@@ -1,12 +1,14 @@
 import _ from 'lodash'
+import { subtaskIsActive, taskIsActive, stepIsActive } from './active'
 
 export const getStatsForTasks = (task) => {
-  const done = _.countBy(task.subTasks, st => st.completed)
+  const active = task.subTasks.filter(subtaskIsActive)
+  const done = _.countBy(active, st => st.completed)
 
   return {
     completed: done.true || 0,
     left: done.false || 0,
-    total: task.subTasks.length
+    total: active.length
   }
 }
 
@@ -26,10 +28,21 @@ export const getTaskProgress = (task) => {
 
 export const getStepProgress = (step) => {
   const { tasks } = step
-  return _.sum(tasks.map(getTaskProgress)) / tasks.length
+  const activeTasks = tasks.filter(taskIsActive)
+  if (activeTasks.length === 0) {
+    return 0;
+  }
+
+  return _.sum(activeTasks.map(getTaskProgress)) / activeTasks.length
 }
 
 export const getCourseProgress = (course) => {
   const { steps } = course
-  return _.sum(steps.map(getStepProgress)) / steps.length
+  const activeSteps = steps.filter(stepIsActive)
+  if (activeSteps.length === 0) {
+    return 0;
+  }
+
+
+  return _.sum(activeSteps.map(getStepProgress)) / activeSteps.length
 }
