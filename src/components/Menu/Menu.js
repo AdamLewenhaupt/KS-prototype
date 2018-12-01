@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
-import styles from './Menu.css'
+import { 
+  courseIsActive
+} from '../../utils/active'
 
 import { connect } from 'react-redux'
-import { Card, Pane } from 'evergreen-ui'
+import { Card, Pane, Text } from 'evergreen-ui'
 import Header from './Header';
 import Subject from './Subject';
 
 class Menu extends Component {
   render() {
     const { courses } = this.props
+
+    const activeCourses = courses.filter(courseIsActive)
+
     return (
       <Card 
         elevation={1}
@@ -18,7 +23,10 @@ class Menu extends Component {
         <Header />
         <Pane marginTop={12}>
           {
-            courses.map(course => (
+            activeCourses.length === 0 ?
+            <Text>Inga Aktiva Kurser</Text>
+            :
+            activeCourses.map(course => (
               <Subject key={course.id} course={course} />
             ))
           }

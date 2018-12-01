@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { getStepProgress } from '../../utils/progress'
+import { 
+  subtaskIsActive, stepIsActive 
+} from '../../utils/active'
 import _ from 'lodash'
 
 import './Subject.css'
@@ -64,7 +67,7 @@ export default class Subject extends Component {
           this.state.showContent && (
             <Pane>
               {
-                steps.map(step => {
+                steps.filter(stepIsActive).map(step => {
                   return (
                     <Pane key={step.id} padding={8}>
                       <Strong>
@@ -73,11 +76,14 @@ export default class Subject extends Component {
                       <UnorderedList
                         icon="circle"
                       >
-                        {step.tasks.map(task => (
+                        {
+                          _.flatten(_.map(step.tasks, 'subTasks'))
+                          .filter(subtaskIsActive)
+                          .map(st => (
                           <ListItem 
-                            key={task.id}
+                            key={st.id}
                           >
-                            {task.title}
+                            {st.text}
                           </ListItem>
                         ))}
                       </UnorderedList>
