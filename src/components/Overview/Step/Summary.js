@@ -8,7 +8,7 @@ export default class Summary extends Component {
 
     return (
       <Pane>
-        <Strong>Vykort</Strong>
+        <Strong>{step.title}</Strong>
         <UnorderedList>
           {
             step.tasks.map(task => (
