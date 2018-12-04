@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
-import { Pane, Heading, Text } from 'evergreen-ui'
+import { Pane, Heading, Button } from 'evergreen-ui'
 import Header from './Header';
 import Activities from './Activites';
 import { Link, Redirect } from 'react-router-dom'
@@ -39,6 +39,13 @@ class Step extends Component {
           <Header step={step} />
           {!step.selectedDate && <DateSelection courseID={course.id} step={step} />}
           <Activities step={step} courseID={course.id} />
+          <Pane>
+            <Link to={`/overview/${subject}`}>
+              <Button appearance="primary">
+                Klar
+              </Button>
+            </Link>
+          </Pane>
         </Pane>
       </Pane>
     )
