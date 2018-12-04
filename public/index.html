@@ -21,11 +21,19 @@
     -->
     <title>React App</title>
   </head>
-  <body>
+  <body style="background-color:#B0B0B0">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div style="display:flex">
+      <div style="display:inline-block">
+        <img style="height:100vh;" src="%PUBLIC_URL%/sidebar.png" />
+      </div>
+      <div style="margin-left:20px; margin-right:20px;">
+        <img width="100%" src="%PUBLIC_URL%/header.png" />
+        <div id="root"></div>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

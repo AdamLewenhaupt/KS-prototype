@@ -17,14 +17,13 @@ class App extends Component {
     return (
       <Pane 
         display="flex" 
-        marginLeft={20} 
         boxSizing="border-box"
         backgroundColor="white"
         minHeight="100vh"
         elevation={1}
       >
         <Pane 
-          width="60vw" 
+          width="60%" 
           marginLeft={16}             
           marginTop={16}
         >
@@ -39,7 +38,7 @@ class App extends Component {
             </Switch>
           </Pane>
         </Pane>
-        <Pane width="40vw" margin={16}>
+        <Pane width="40%" margin={16}>
           <Menu />
         </Pane>
       </Pane>

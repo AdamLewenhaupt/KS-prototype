@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styles from './Header.css'
 
 import { Pane, Button } from 'evergreen-ui'
@@ -18,26 +18,28 @@ class Header extends Component {
     const matchCurrent = (href) => location.pathname === href
 
     return (
-      <Pane elevation={1}>
-        {
-          options.map(option => {
-            const current = matchCurrent(option.href)
-            const apperance = current ? "default" : "minimal"
+      <Fragment>
+        <Pane elevation={1}>
+          {
+            options.map(option => {
+              const current = matchCurrent(option.href)
+              const apperance = current ? "default" : "minimal"
 
-            return (
-              <Link 
-                key={option.label} 
-                to={option.href} 
-                className="header-link"
-              >
-                <Button appearance={apperance}>
-                  {option.label}
-                </Button>
-              </Link>
-            )
-          })
-        }   
-      </Pane>
+              return (
+                <Link 
+                  key={option.label} 
+                  to={option.href} 
+                  className="header-link"
+                >
+                  <Button appearance={apperance}>
+                    {option.label}
+                  </Button>
+                </Link>
+              )
+            })
+          }   
+        </Pane>
+      </Fragment>
     )
   }
 }

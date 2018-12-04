@@ -49,6 +49,7 @@ class Subject extends Component {
         backgroundColor="#F1F5F4"
       >
         <Pane
+          onClick={this.toggleShowContent}
           display="flex"
           justifyContent="space-between"
           alignItems="center"
@@ -62,7 +63,6 @@ class Subject extends Component {
           <IconButton 
             appearance="minimal" 
             icon={this.state.showContent ? "chevron-up" : "chevron-down"}
-            onClick={this.toggleShowContent}
             />
         </Pane>
         {
