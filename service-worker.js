@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/prototypereact-gh-pages-ks/precache-manifest.e8e7e4376894e3be086f41f3f8af6af4.js"
+  "/ks-prototype/precache-manifest.0fdca32dc70c5739340d96aa2f1b774f.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/prototypereact-gh-pages-ks/index.html", {
+workbox.routing.registerNavigationRoute("/ks-prototype/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
